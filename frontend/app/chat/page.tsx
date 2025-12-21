@@ -62,11 +62,19 @@ const ChatRoom = ({ character }: { character: Character }) => {
       <Navbar character={character} />
 
       <div
-        className="flex flex-col w-full max-w-4xl h-[80vh] 
-      bg-gray-50 rounded-2xl shadow-xl 
-      overflow-hidden border border-gray-200 mt-4 mx-auto"
+        className="flex flex-col w-full
+    h-[calc(100vh-64px)]
+    sm:h-[80vh]
+    max-w-full sm:max-w-3xl lg:max-w-4xl
+    bg-gray-50
+    rounded-none sm:rounded-2xl
+    shadow-none sm:shadow-xl
+    overflow-hidden
+    border border-gray-200
+    mt-0 sm:mt-4
+    mx-0 sm:mx-auto"
       >
-        <div className="flex-1 overflow-y-auto p-4 space-y-6 ">
+        <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-4 sm:space-y-6">
           {messages.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full text-center select-none opacity-60">
               <div className="bg-gray-100 p-6 rounded-full mb-4 animate-pulse">
@@ -86,7 +94,7 @@ const ChatRoom = ({ character }: { character: Character }) => {
 
                 return (
                   <div
-                    key={`${msg.sender}-${msg.time}`} 
+                    key={`${msg.sender}-${msg.time}`}
                     className={`flex w-full ${
                       isMe ? "justify-end" : "justify-start"
                     }`}
@@ -102,7 +110,8 @@ const ChatRoom = ({ character }: { character: Character }) => {
                           alt={msg.sender}
                           width={45}
                           height={45}
-                          className="rounded-full border border-gray-200 shadow-sm object-cover"
+                          className="sm:w-11.25 sm:h-11.25
+                          rounded-full border border-gray-200 shadow-sm object-cover"
                         />
                       </div>
 
@@ -117,23 +126,29 @@ const ChatRoom = ({ character }: { character: Character }) => {
                           </span>
                         )}
                         <div className="flex flex-col">
-<div
-                          className={`
-                            px-4 py-3 rounded-2xl text-sm leading-relaxed shadow-md 
+                          <div
+                            className={`
+                            px-3 py-2 sm:px-4 sm:py-3
+                            rounded-2xl
+                            text-[13px] sm:text-sm
+                            leading-relaxed
+                            shadow-md 
                             ${
                               isMe
                                 ? `bg-${character.color}-600 text-white rounded-br-sm`
                                 : "bg-white text-gray-800 border border-gray-100 rounded-bl-sm"
                             }
                           `}
-                        >
-                          {msg.text}
-
-                          
-                        </div>
-                        <div
+                          >
+                            {msg.text}
+                          </div>
+                          <div
                             className={`mt-1 text-[10px] opacity-70 
-                              ${isMe ? "text-right text-gray-400" : "text-left text-gray-400"}`}
+                              ${
+                                isMe
+                                  ? "text-right text-gray-400"
+                                  : "text-left text-gray-400"
+                              }`}
                           >
                             {new Date(msg.time).toLocaleTimeString("th-TH", {
                               hour: "2-digit",
@@ -141,7 +156,6 @@ const ChatRoom = ({ character }: { character: Character }) => {
                             })}
                           </div>
                         </div>
-                        
                       </div>
                     </div>
                   </div>
@@ -153,7 +167,7 @@ const ChatRoom = ({ character }: { character: Character }) => {
           )}
         </div>
 
-        <div className="p-4 bg-white border-t border-gray-100">
+        <div className="p-3 sm:p-4 bg-white border-t border-gray-100">
           <div
             className="flex items-center gap-3 bg-[#EEEEEE] p-2 rounded-full 
           pr-2 focus-within:ring-2 focus-within:ring-blue-600 transition-all"
@@ -162,7 +176,11 @@ const ChatRoom = ({ character }: { character: Character }) => {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              className="flex-1 bg-transparent px-4 py-2 text-md text-gray-700 placeholder-gray-400 focus:outline-none"
+              className=" flex-1 bg-transparent
+                          px-3 sm:px-4
+                          py-2
+                          text-sm sm:text-md
+                          focus:outline-none"
               placeholder={`พิมพ์ข้อความ...`}
               onKeyDown={(e) => e.key === "Enter" && sendMessage()}
             />
@@ -170,7 +188,9 @@ const ChatRoom = ({ character }: { character: Character }) => {
               onClick={sendMessage}
               disabled={!input.trim()}
               className={`
-                p-3 rounded-full transition-all duration-200
+                 p-2.5 sm:p-3
+                rounded-full
+                transition-all
                 ${
                   input.trim()
                     ? "bg-blue-600 text-white shadow-md hover:bg-blue-700 hover:scale-105 active:scale-95 cursor-pointer"
