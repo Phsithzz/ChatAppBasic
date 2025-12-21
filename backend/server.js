@@ -5,10 +5,13 @@ wss.on("connection",(ws)=>{
     ws.on("message",(msg)=>{
         try {
             const data = JSON.parse(msg.toString())
-
+const messageWithTime = {
+        ...data,
+        time: new Date().toISOString(),
+      };
             wss.clients.forEach((client)=>{
                 if(client.readyState === ws.OPEN){
-                    client.send(JSON.stringify(data))
+                    client.send(JSON.stringify(messageWithTime))
                 }
             })
         } catch (err) {
